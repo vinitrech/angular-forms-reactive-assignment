@@ -1,7 +1,45 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 offset-sm-1 offset-md-2">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 offset-sm-1 offset-md-2">
+            <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+                <div class="form-group mt-2">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                    <span *ngIf="!projectForm.get('name')?.valid && projectForm.get('name')?.touched"
+                          class="help-block">
+                    <span *ngIf="projectForm.get('name')?.errors?.['required']" class="text-danger">
+                        This field is required
+                    </span>
+                    <span *ngIf="projectForm.get('name')?.errors?.['forbiddenName']" class="text-danger">
+                        This name is forbidden
+                    </span>
+                </span>
+                </div>
 
+                <div class="form-group mt-2">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" formControlName="mail">
+                    <span *ngIf="!projectForm.get('mail')?.valid && projectForm.get('mail')?.touched"
+                          class="help-block">
+                    <span *ngIf="projectForm.get('mail')?.errors?.['required']" class="text-danger">
+                        This field is required
+                    </span>
+                    <span *ngIf="projectForm.get('mail')?.errors?.['email']" class="text-danger">
+                        Invalid email address
+                    </span>
+                </span>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-control" formControlName="status">
+                        <option [value]="st" *ngFor="let st of statuses">{{st}}</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary mt-3" type="submit">Send</button>
+
+            </form>
+        </div>
     </div>
-  </div>
 </div>
